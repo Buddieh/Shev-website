@@ -1,0 +1,468 @@
+/* Shev House — minimal portfolio
+   Visual language borrowed from the lamps: stacked, offset tiers,
+   matte white planes, and warm light leaking between layers. */
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e2;
+  --ink: #1d1c1a;
+  --muted: #77736b;
+  --line: #dcd8cf;
+  --glow: #e9a65b;          /* the light between the tiers — use sparingly */
+  --glow-soft: rgba(233, 166, 91, 0.18);
+
+  --font: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1280px;
+  --step: 10px;             /* the offset used for every "tier" */
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 12px;
+}
+
+h1, h2, h3 { font-weight: 400; letter-spacing: -0.01em; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(34px, 5.5vw, 64px); }
+h2 { font-size: clamp(26px, 3.4vw, 40px); }
+h3 { font-size: 20px; }
+
+/* ---------- Header ---------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.logo img { width: 26px; height: 31px; }
+
+.nav { display: flex; gap: clamp(16px, 3vw, 36px); }
+
+.nav a {
+  font-size: 14px;
+  text-decoration: none;
+  color: var(--muted);
+  padding: 6px 0;
+  border-bottom: 1px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+
+.nav a:hover,
+.nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--glow); }
+
+/* ---------- Hero ---------- */
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gutter);
+  align-items: end;
+  padding-block: clamp(40px, 8vw, 96px) clamp(48px, 8vw, 112px);
+}
+
+.hero-copy { padding-bottom: 24px; }
+.hero-copy p { color: var(--muted); max-width: 38ch; margin: 20px 0 32px; }
+
+/* The stepped frame: an offset plane sits behind every key image, like a tier. */
+.tiered {
+  position: relative;
+  isolation: isolate;
+  margin: 0 var(--step) var(--step) 0;
+}
+
+.tiered::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translate(var(--step), var(--step));
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  z-index: -1;
+}
+
+.hero-media img,
+.hero-media .placeholder { aspect-ratio: 4 / 5; width: 100%; object-fit: cover; }
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 22px;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  transition: background .2s, color .2s;
+}
+
+.btn:hover { background: var(--ink); color: var(--paper); }
+.btn.solid { background: var(--ink); color: var(--paper); }
+.btn.solid:hover { background: transparent; color: var(--ink); }
+.btn .arrow { transition: transform .2s; }
+.btn:hover .arrow { transform: translateX(3px); }
+
+/* ---------- Section heads ---------- */
+
+.section { padding: clamp(48px, 8vw, 104px) 0; border-top: 1px solid var(--line); }
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 24px;
+  margin-bottom: clamp(28px, 4vw, 48px);
+}
+
+.section-head p { color: var(--muted); margin: 0; max-width: 42ch; }
+
+/* ---------- Product grid ---------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(28px, 4vw, 56px) clamp(20px, 3vw, 40px);
+}
+
+/* Every other column drops by one step, echoing the offset tiers. */
+.grid > :nth-child(3n + 2) { margin-top: calc(var(--step) * 6); }
+
+.card { text-decoration: none; display: block; }
+
+.card-media {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper-2);
+}
+
+.card-media img,
+.card-media .placeholder { aspect-ratio: 4 / 5; width: 100%; object-fit: cover; transition: transform .6s ease; }
+
+/* The "light leak": a warm line that appears under the image on hover. */
+.card-media::after {
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: 0;
+  height: 2px;
+  background: var(--glow);
+  box-shadow: 0 0 18px 4px var(--glow-soft);
+  transform: scaleX(0);
+  transition: transform .4s ease;
+}
+
+.card:hover .card-media::after { transform: scaleX(1); }
+.card:hover .card-media img { transform: scale(1.025); }
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 14px;
+  font-size: 15px;
+}
+
+.card-meta .price { color: var(--muted); }
+.card .tag { font-size: 12px; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+
+/* ---------- Placeholders ---------- */
+
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background:
+    repeating-linear-gradient(135deg, transparent 0 11px, rgba(29,28,26,.035) 11px 12px),
+    var(--paper-2);
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-align: center;
+  padding: 16px;
+}
+
+.placeholder svg { width: 48px; opacity: .45; }
+
+/* Text we still need from the studio. Turn off by removing `show-placeholders` from <body>. */
+.show-placeholders .ph {
+  background: var(--glow-soft);
+  outline: 1px dashed var(--glow);
+  outline-offset: 2px;
+}
+
+/* ---------- Product page ---------- */
+
+.product {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: clamp(32px, 5vw, 80px);
+  padding-block: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+
+.gallery { display: grid; gap: 14px; }
+.gallery-main img,
+.gallery-main .placeholder { aspect-ratio: 4 / 5; width: 100%; object-fit: cover; }
+
+.thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.thumbs button {
+  padding: 0;
+  border: 1px solid transparent;
+  background: var(--paper-2);
+  cursor: pointer;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+.thumbs button[aria-current="true"] { border-color: var(--ink); }
+.thumbs img { width: 100%; height: 100%; object-fit: cover; }
+
+.product-info { position: sticky; top: 104px; }
+.product-info .price { font-size: 20px; margin: 14px 0 24px; }
+.product-info .desc { color: #47443f; margin: 0 0 32px; }
+
+.specs { border-top: 1px solid var(--line); margin: 0 0 32px; }
+.specs div {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+}
+.specs dt { color: var(--muted); }
+.specs dd { margin: 0; }
+
+.product-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.back { display: inline-block; margin-top: 28px; font-size: 14px; color: var(--muted); text-decoration: none; }
+.back:hover { color: var(--ink); }
+
+/* ---------- About ---------- */
+
+.about-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gutter);
+  padding-block: clamp(40px, 7vw, 96px);
+  align-items: center;
+}
+
+.prose p { color: #47443f; max-width: 60ch; }
+.prose p + p { margin-top: 1em; }
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 3vw, 40px);
+  counter-reset: step;
+}
+
+.steps li {
+  list-style: none;
+  border-top: 1px solid var(--ink);
+  padding-top: 18px;
+}
+.steps li:nth-child(2) { margin-top: calc(var(--step) * 3); }
+.steps li:nth-child(3) { margin-top: calc(var(--step) * 6); }
+.steps li::before {
+  counter-increment: step;
+  content: "0" counter(step);
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: .12em;
+  margin-bottom: 10px;
+}
+.steps ol { padding: 0; margin: 0; }
+
+/* ---------- Contact experiments ---------- */
+
+.review-note {
+  border: 1px dashed var(--glow);
+  background: var(--glow-soft);
+  padding: 14px 18px;
+  font-size: 14px;
+  margin: 32px 0 0;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(20px, 3vw, 40px);
+  padding-block: 40px clamp(48px, 8vw, 104px);
+}
+
+.option {
+  border: 1px solid var(--line);
+  padding: clamp(20px, 3vw, 36px);
+  background: #faf9f6;
+}
+
+.option-label {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--ink);
+  padding: 4px 8px;
+  margin-bottom: 18px;
+}
+
+.option h3 { margin-bottom: 8px; }
+.option > p { color: var(--muted); margin: 0 0 24px; font-size: 15px; }
+
+.form { display: grid; gap: 14px; }
+.form label { display: grid; gap: 6px; font-size: 13px; color: var(--muted); }
+.form input,
+.form select,
+.form textarea {
+  font: inherit;
+  font-size: 15px;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  padding: 8px 0;
+  border-radius: 0;
+}
+.form input:focus,
+.form select:focus,
+.form textarea:focus { outline: none; border-bottom-color: var(--glow); }
+.form textarea { resize: vertical; min-height: 96px; }
+.form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+.channels { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
+.channels li { border-bottom: 1px solid var(--line); }
+.channels a {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0;
+  text-decoration: none;
+  font-size: 15px;
+}
+.channels a span:last-child { color: var(--muted); }
+.channels a:hover span:last-child { color: var(--ink); }
+
+/* Option D: floating chat button preview */
+.float-preview {
+  position: relative;
+  height: 150px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+}
+.float-btn {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 14px;
+  text-decoration: none;
+  box-shadow: var(--step) var(--step) 0 var(--paper-2), var(--step) var(--step) 0 1px var(--line);
+}
+.float-btn::before {
+  content: "";
+  width: 8px; height: 8px;
+  background: var(--glow);
+  box-shadow: 0 0 10px var(--glow);
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer { border-top: 1px solid var(--line); padding: 40px 0 56px; font-size: 14px; color: var(--muted); }
+.site-footer .wrap { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.site-footer a { text-decoration: none; }
+.site-footer a:hover { color: var(--ink); }
+.site-footer nav { display: flex; gap: 20px; }
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .grid > :nth-child(3n + 2) { margin-top: 0; }
+  .grid > :nth-child(2n) { margin-top: calc(var(--step) * 5); }
+  .product, .about-intro { grid-template-columns: 1fr; }
+  .product-info { position: static; }
+  .options { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  :root { --step: 7px; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-copy { order: 2; padding-bottom: 0; }
+  .section-head { flex-direction: column; align-items: start; }
+  .grid { gap: 28px 14px; }
+  .card-meta { flex-direction: column; gap: 2px; font-size: 14px; }
+  .steps { grid-template-columns: 1fr; }
+  .steps li:nth-child(n) { margin-top: 0; }
+  .logo span { display: none; }
+  .form .row { grid-template-columns: 1fr; }
+  .specs div { grid-template-columns: 96px 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}

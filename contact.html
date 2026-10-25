@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact — Shev House</title>
+  <meta name="description" content="Get in touch with Shev House.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="show-placeholders">
+  <header class="site-header">
+    <div class="wrap">
+      <a class="logo" href="index.html" aria-label="Shev House — home">
+        <img src="assets/img/logo-mark.svg" alt="">
+        <span>Shev House</span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="index.html#collection">Lamps</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" aria-current="page">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section style="padding-top: clamp(40px, 7vw, 88px)">
+      <p class="eyebrow">Contact</p>
+      <h1>Say hello.</h1>
+      <p class="review-note"><strong>For review:</strong> four contact options are shown side by side so you can compare them. Keep the ones you like and I'll remove the rest. Every address, number and handle here is a placeholder.</p>
+    </section>
+
+    <section class="options">
+      <div class="option" id="inquiry">
+        <span class="option-label">Option A</span>
+        <h3>Inquiry form</h3>
+        <p>Best for quotes. Opens a pre-filled email for now; can be connected to a form service (e.g. Formspree) later.</p>
+        <form class="form" action="mailto:hello@example.com" method="post" enctype="text/plain">
+          <div class="row">
+            <label>Name<input name="name" autocomplete="name" required></label>
+            <label>Email<input name="email" type="email" autocomplete="email" required></label>
+          </div>
+          <label>About<select name="product" data-product-field></select></label>
+          <label>Message<textarea name="message" placeholder="Quantity, finish, where it will live…"></textarea></label>
+          <div><button class="btn solid" type="submit">Send inquiry <span class="arrow">→</span></button></div>
+        </form>
+      </div>
+
+      <div class="option" id="channels">
+        <span class="option-label">Option B</span>
+        <h3>Direct channels</h3>
+        <p>A plain list. Lowest effort for visitors who already know what they want.</p>
+        <ul class="channels">
+          <li><a href="mailto:hello@example.com"><span>Email</span><span class="ph">hello@example.com</span></a></li>
+          <li><a href="https://wa.me/0000000000"><span>WhatsApp</span><span class="ph">+00 000 000 000</span></a></li>
+          <li><a href="https://instagram.com/"><span>Instagram</span><span class="ph">@shevhouse</span></a></li>
+          <li><a href="tel:+0000000000"><span>Phone</span><span class="ph">+00 000 000 000</span></a></li>
+        </ul>
+      </div>
+
+      <div class="option">
+        <span class="option-label">Option C</span>
+        <h3>Book a studio visit or call</h3>
+        <p>Suits a portfolio brand: people see the lamps lit in person. Would link to a booking page (e.g. Calendly).</p>
+        <ul class="channels">
+          <li><a href="#"><span>15-minute video call</span><span class="ph">Booking link</span></a></li>
+          <li><a href="#"><span>Studio visit</span><span class="ph">Booking link · address</span></a></li>
+        </ul>
+      </div>
+
+      <div class="option">
+        <span class="option-label">Option D</span>
+        <h3>Floating chat button</h3>
+        <p>A small button pinned to the corner of every page, opening WhatsApp or Instagram DMs. Preview:</p>
+        <div class="float-preview">
+          <a class="float-btn" href="https://wa.me/0000000000">Chat with the studio</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>© 2026 Shev House · <span class="ph">City, Country</span></span>
+      <nav aria-label="Footer">
+        <a href="https://instagram.com/" class="ph">Instagram</a>
+        <a href="mailto:hello@example.com" class="ph">hello@example.com</a>
+      </nav>
+    </div>
+  </footer>
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/site.js"></script>
+</body>
+</html>
